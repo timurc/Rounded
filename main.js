@@ -1,8 +1,6 @@
-"use strict";
+'use strict';
 
 require('./rounded.js');
 require("./style.less");
 
-let foo = 'pf'
-
-console.log(`hey${foo}yy`);
+let characters = require('./characters.js').getCharacters();
