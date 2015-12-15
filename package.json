@@ -1,0 +1,23 @@
+{
+  "name": "rounded",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {},
+  "devDependencies": {
+    "css-loader": "^0.23.0",
+    "extract-text-webpack-plugin": "^0.9.1",
+    "less": "^2.5.3",
+    "less-loader": "^2.2.2",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack-dev-server --progress --colors --port 8000"
+  },
+  "author": "Timur Çelikel",
+  "license": "MIT"
+}
