@@ -8,5 +8,36 @@
 		width: 20px;
 		background: black;
 		margin: 2px;
+
+		&-blank {
+			opacity: .1;
+		}
+
+		&-square {
+		}
+
+		&-tr {
+			border-radius: 0 100% 0 0 ;
+		}
+
+		&-br {
+			border-radius: 0 0 100% 0;
+		}
+
+		&-bl {
+			border-radius: 0 0 0 100%;
+		}
+
+		&-tl {
+			border-radius: 100% 0 0 0;
+		}
+
+		&-circle {
+			border-radius: 100%;
+		}
+
+		&-rotated {
+			transform: rotate(45deg);
+		}
 	}
 }
