@@ -29,10 +29,9 @@ exports.grid = class Grid {
 			let rowElement = this._addElement(rootElement, CLASS_NAME + '_row');
 
 			for (let columnIndex = 0; columnIndex < height; columnIndex++) {
-				let columnElement = this._addElement(rowElement);
-				this._setCell(columnElement, 0);
-				this._addCellAttributes(columnElement);
-				this.gridArray[rowIndex].push(columnElement)
+				let cell = new Cell(0, true);
+				rowElement.appendChild(cell.el);
+				this.gridArray[rowIndex].push(cell)
 			}
 		}
 	}
@@ -45,26 +44,43 @@ exports.grid = class Grid {
 		rootElement.appendChild(element);
 		return element;
 	}
+}
 
-	_setCell(cell, state) {
-		if (cell.dataset.roundedGridState === state) {
+class Cell {
+	constructor(state, isEditable) {
+		this.el = document.createElement('div');
+
+		if (isEditable) {
+			this.el.tabIndex = 1;
+			this._addEventHandlers();
+		}
+
+		this.state = state;
+	}
+
+	set state(state) {
+		// prevent setting states (DOM access) if not necessary 
+		if (state === this._state) {
 			return;
 		}
 
-		cell.className = this._generateStateClassName(state);
-		cell.dataset.roundedGridState = state;
+		this._state = state;
+		this._setElementState();
 	}
 
-	_addCellAttributes(cell) {
-		cell.tabIndex = 1;
-		cell.addEventListener('keypress', (event) => {
+	get state() {
+		return this._state;
+	}
+
+	_addEventHandlers() {
+		this.el.addEventListener('keypress', (event) => {
 			if (event.charCode >= 48 && event.charCode <= 57) {
-				this._setCell(cell, event.charCode - 48);
+				this.state = event.charCode - 48;
 			}
 		});
 	}
 
-	_generateStateClassName(state) {
-		return CLASS_NAME + '_cell ' + CLASS_NAME + '_cell-' + SHAPES[state];
+	_setElementState() {
+		this.el.className = CLASS_NAME + '_cell ' + CLASS_NAME + '_cell-' + SHAPES[this.state];
 	}
 }
