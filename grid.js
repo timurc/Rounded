@@ -49,22 +49,39 @@ exports.grid = class Grid {
 
 	_addNavigationHandlers(el, rowIndex, columnIndex) {
 		el.addEventListener('keydown', (event) => {
-			let step = 1;
+			let step = event.altKey ? 10 : 1;
+			let goToEnd = event.metaKey;
 			switch (event.keyIdentifier) {
 				case 'Up':
-					this.gridArray[rowIndex - step][columnIndex].el.focus();
+					if (goToEnd || rowIndex - step < 0) {
+						this.gridArray[0][columnIndex].el.focus();
+					} else {
+						this.gridArray[rowIndex - step][columnIndex].el.focus();
+					}
 					event.preventDefault();
 					break;
 				case 'Down':
-					this.gridArray[rowIndex + step][columnIndex].el.focus();
+					if (goToEnd || rowIndex + step >= this.gridArray.length) {
+						this.gridArray[this.gridArray.length - 1][columnIndex].el.focus();
+					} else {
+						this.gridArray[rowIndex + step][columnIndex].el.focus();
+					}
 					event.preventDefault();
 					break;
 				case 'Right':
-					this.gridArray[rowIndex][columnIndex + step].el.focus();
+					if (goToEnd || columnIndex + step >= this.gridArray[rowIndex].length) {
+						this.gridArray[rowIndex][this.gridArray[rowIndex].length - 1].el.focus();
+					} else {
+						this.gridArray[rowIndex][columnIndex + step].el.focus();
+					}
 					event.preventDefault();
 					break;
 				case 'Left':
-					this.gridArray[rowIndex][columnIndex - step].el.focus();
+					if (goToEnd || columnIndex - step < 0) {
+						this.gridArray[rowIndex][0].el.focus();
+					} else {
+						this.gridArray[rowIndex][columnIndex - step].el.focus();
+					}
 					event.preventDefault();
 			}
 		});
