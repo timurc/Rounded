@@ -81,6 +81,6 @@ class Cell {
 	}
 
 	_setElementState() {
-		this.el.className = CLASS_NAME + '_cell ' + CLASS_NAME + '_cell-' + SHAPES[this.state];
+		this.el.className = `${CLASS_NAME}_cell ${CLASS_NAME}_cell-${SHAPES[this.state]}`;
 	}
 }
