@@ -30,7 +30,8 @@ exports.grid = class Grid {
 
 			for (let columnIndex = 0; columnIndex < height; columnIndex++) {
 				let columnElement = this._addElement(rowElement);
-				this._setCell(columnElement, 0)
+				this._setCell(columnElement, 0);
+				this._addCellAttributes(columnElement);
 				this.gridArray[rowIndex].push(columnElement)
 			}
 		}
@@ -43,7 +44,7 @@ exports.grid = class Grid {
 		}
 		rootElement.appendChild(element);
 		return element;
-	};
+	}
 
 	_setCell(cell, state) {
 		if (cell.dataset.roundedGridState === state) {
@@ -52,6 +53,15 @@ exports.grid = class Grid {
 
 		cell.className = this._generateStateClassName(state);
 		cell.dataset.roundedGridState = state;
+	}
+
+	_addCellAttributes(cell) {
+		cell.tabIndex = 1;
+		cell.addEventListener('keypress', (event) => {
+			if (event.charCode >= 48 && event.charCode <= 57) {
+				this._setCell(cell, event.charCode - 48);
+			}
+		});
 	}
 
 	_generateStateClassName(state) {
