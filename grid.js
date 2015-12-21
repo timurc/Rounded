@@ -14,10 +14,11 @@ const SHAPES = [
 ];
 
 exports.grid = class Grid {
-	constructor(rootElement, width, height) {
+	constructor(rootElement, width, height, isEditable) {
 		this.gridArray = [];
 		this.width = width;
 		this.height = height;
+		this.isEditable = isEditable;
 
 		rootElement.classList.add(CLASS_NAME);
 
@@ -29,9 +30,10 @@ exports.grid = class Grid {
 			let rowElement = this._addElement(rootElement, CLASS_NAME + '_row');
 
 			for (let columnIndex = 0; columnIndex < height; columnIndex++) {
-				let cell = new Cell(0, true);
+				let cell = new Cell(0, this.isEditable);
 				rowElement.appendChild(cell.el);
-				this.gridArray[rowIndex].push(cell)
+				this._addNavigationHandlers(cell.el, rowIndex, columnIndex);
+				this.gridArray[rowIndex].push(cell);
 			}
 		}
 	}
@@ -43,6 +45,29 @@ exports.grid = class Grid {
 		}
 		rootElement.appendChild(element);
 		return element;
+	}
+
+	_addNavigationHandlers(el, rowIndex, columnIndex) {
+		el.addEventListener('keydown', (event) => {
+			let step = 1;
+			switch (event.keyIdentifier) {
+				case 'Up':
+					this.gridArray[rowIndex - step][columnIndex].el.focus();
+					event.preventDefault();
+					break;
+				case 'Down':
+					this.gridArray[rowIndex + step][columnIndex].el.focus();
+					event.preventDefault();
+					break;
+				case 'Right':
+					this.gridArray[rowIndex][columnIndex + step].el.focus();
+					event.preventDefault();
+					break;
+				case 'Left':
+					this.gridArray[rowIndex][columnIndex - step].el.focus();
+					event.preventDefault();
+			}
+		});
 	}
 }
 
