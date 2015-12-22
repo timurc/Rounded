@@ -13,6 +13,16 @@ const SHAPES = [
 	'rotated'
 ];
 
+const KEYMAP = {
+	e: 'tr',
+	w: 'tl',
+	s: 'bl',
+	d: 'br',
+	q: 'circle',
+	a: 'square',
+	r: 'blank'
+};
+
 exports.grid = class Grid {
 	constructor(rootElement, width, height, isEditable) {
 		this.gridArray = [];
@@ -116,8 +126,9 @@ class Cell {
 
 	_addEventHandlers() {
 		this.el.addEventListener('keypress', (event) => {
-			if (event.charCode >= 48 && event.charCode <= 57) {
-				this.state = event.charCode - 48;
+			let state = KEYMAP[event.key] && SHAPES.indexOf(KEYMAP[event.key]);
+			if (state >= 0) {
+				this.state = state;
 			}
 		});
 	}
