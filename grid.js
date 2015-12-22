@@ -1,46 +1,47 @@
 'use strict';
 
-const CLASS_NAME = 'rounded-grid';
-
-const SHAPES = [
-	'blank',
-	'square',
-	'tr',
-	'br',
-	'bl',
-	'tl',
-	'circle', 
-	'rotated'
-];
-
-const KEYMAP = {
-	e: 'tr',
-	w: 'tl',
-	s: 'bl',
-	d: 'br',
-	q: 'circle',
-	a: 'square',
-	r: 'blank'
+const DEFAULTS = {
+	CLASS_NAME: 'rounded-grid',
+	SHAPES: [
+		'blank',
+		'square',
+		'tr',
+		'br',
+		'bl',
+		'tl',
+		'circle', 
+		'rotated'
+	],
+	KEYMAP: {
+		e: 'tr',
+		w: 'tl',
+		s: 'bl',
+		d: 'br',
+		q: 'circle',
+		a: 'square',
+		r: 'blank'
+	}
 };
 
 exports.grid = class Grid {
-	constructor(rootElement, width, height, isEditable) {
+	constructor(rootElement, width, height, isEditable, config) {
 		this.gridArray = [];
 		this.width = width;
 		this.height = height;
 		this.isEditable = isEditable;
+		this.config = Object.assign({}, DEFAULTS, config);
 
-		rootElement.classList.add(CLASS_NAME);
+		rootElement.classList.add(this.config.CLASS_NAME);
 
 		for (let rowIndex = 0; rowIndex < width; rowIndex++) {
 			if (!this.gridArray[rowIndex]) {
 				this.gridArray[rowIndex] = [];
 			};
 
-			let rowElement = this._addElement(rootElement, CLASS_NAME + '_row');
+			let rowElement = this._addElement(rootElement, this.config.CLASS_NAME + '_row');
 
 			for (let columnIndex = 0; columnIndex < height; columnIndex++) {
-				let cell = new Cell(0, this.isEditable);
+				let cell = new Cell(0, this.isEditable, this.config);
 				rowElement.appendChild(cell.el);
 				this._addNavigationHandlers(cell.el, rowIndex, columnIndex);
 				this.gridArray[rowIndex].push(cell);
@@ -99,8 +100,9 @@ exports.grid = class Grid {
 }
 
 class Cell {
-	constructor(state, isEditable) {
+	constructor(state, isEditable, config) {
 		this.el = document.createElement('div');
+		this.config = config;
 
 		if (isEditable) {
 			this.el.tabIndex = 1;
@@ -126,7 +128,7 @@ class Cell {
 
 	_addEventHandlers() {
 		this.el.addEventListener('keypress', (event) => {
-			let state = KEYMAP[event.key] && SHAPES.indexOf(KEYMAP[event.key]);
+			let state = this.config.KEYMAP[event.key] && this.config.SHAPES.indexOf(this.config.KEYMAP[event.key]);
 			if (state >= 0) {
 				this.state = state;
 			}
@@ -134,6 +136,6 @@ class Cell {
 	}
 
 	_setElementState() {
-		this.el.className = `${CLASS_NAME}_cell ${CLASS_NAME}_cell-${SHAPES[this.state]}`;
+		this.el.className = `${this.config.CLASS_NAME}_cell ${this.config.CLASS_NAME}_cell-${this.config.SHAPES[this.state]}`;
 	}
 }
