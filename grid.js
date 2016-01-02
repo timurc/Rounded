@@ -1,4 +1,3 @@
-'use strict';
 
 const DEFAULTS = {
 	CLASS_NAME: 'rounded-grid',
@@ -23,7 +22,7 @@ const DEFAULTS = {
 	}
 };
 
-exports.grid = class Grid {
+export default class Grid {
 	constructor(rootElement, width, height, isEditable, config) {
 		this.gridArray = [];
 		this.width = width;
@@ -139,3 +138,4 @@ class Cell {
 		this.el.className = `${this.config.CLASS_NAME}_cell ${this.config.CLASS_NAME}_cell-${this.config.SHAPES[this.state]}`;
 	}
 }
+
