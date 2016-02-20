@@ -37,10 +37,10 @@ export default class Grid {
 				this.gridArray[rowIndex] = [];
 			};
 
-			let rowElement = this._addElement(rootElement, this.config.CLASS_NAME + '_row');
+			const rowElement = this._addElement(rootElement, this.config.CLASS_NAME + '_row');
 
 			for (let columnIndex = 0; columnIndex < height; columnIndex++) {
-				let cell = new Cell(0, this.isEditable, this.config);
+				const cell = new Cell(0, this.isEditable, this.config);
 				rowElement.appendChild(cell.el);
 				this._addNavigationHandlers(cell.el, rowIndex, columnIndex);
 				this.gridArray[rowIndex].push(cell);
@@ -49,7 +49,8 @@ export default class Grid {
 	}
 
 	_addElement(rootElement, className) {
-		let element = document.createElement('div');
+		const element = document.createElement('div');
+		
 		if (className) {
 			element.classList.add(className);
 		}
@@ -59,8 +60,9 @@ export default class Grid {
 
 	_addNavigationHandlers(el, rowIndex, columnIndex) {
 		el.addEventListener('keydown', (event) => {
-			let step = event.altKey ? 10 : 1;
-			let goToEnd = event.metaKey;
+			const step = event.altKey ? 10 : 1;
+			const goToEnd = event.metaKey;
+
 			switch (event.keyIdentifier) {
 				case 'Up':
 					if (goToEnd || rowIndex - step < 0) {
@@ -128,7 +130,7 @@ class Cell {
 	_addEventHandlers() {
 		this.el.addEventListener('keydown', (event) => {
 			const keyPressed = String.fromCharCode(event.keyCode || event.which).toLowerCase();
-			let state = this.config.KEYMAP[keyPressed] && this.config.SHAPES.indexOf(this.config.KEYMAP[keyPressed]);
+			const state = this.config.KEYMAP[keyPressed] && this.config.SHAPES.indexOf(this.config.KEYMAP[keyPressed]);
 			if (state >= 0) {
 				this.state = state;
 			}
