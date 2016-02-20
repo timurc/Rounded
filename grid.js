@@ -126,8 +126,9 @@ class Cell {
 	}
 
 	_addEventHandlers() {
-		this.el.addEventListener('keypress', (event) => {
-			let state = this.config.KEYMAP[event.key] && this.config.SHAPES.indexOf(this.config.KEYMAP[event.key]);
+		this.el.addEventListener('keydown', (event) => {
+			const keyPressed = String.fromCharCode(event.keyCode || event.which).toLowerCase();
+			let state = this.config.KEYMAP[keyPressed] && this.config.SHAPES.indexOf(this.config.KEYMAP[keyPressed]);
 			if (state >= 0) {
 				this.state = state;
 			}
