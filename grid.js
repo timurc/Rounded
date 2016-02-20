@@ -34,16 +34,44 @@ const DEFAULTS = {
 export default class Grid {
 	constructor(rootElement, config) {
 		this.config = Object.assign({}, DEFAULTS, config);
-		this.gridArray = [];
 
 		this._rootElement = rootElement;
 		this._rootElement.classList.add(this.config.CLASS_NAME);
 
-		this._initGrid();
+		this.data = this.config.data;
+
 		this._addNavigationHandlers();
 	}
 
+	set data(data) {
+		if (!this.gridArray) {
+			this._initGrid();
+		} else {
+			this.gridArray.forEach((row, rowIndex) => {
+				row.forEach((cell, columnIndex) => {
+					cell.state = data[rowIndex][columnIndex];
+				})
+			})
+		}
+	}
+
+	get data() {
+		const dataExport = [];
+
+		this.gridArray.forEach((row, rowIndex) => {
+			dataExport.push([]);
+
+			row.forEach((cell, columnIndex) => {
+				dataExport[rowIndex].push(cell.state);
+			})
+		})
+
+		return dataExport;
+	}
+
 	_initGrid() {
+		this.gridArray = [];
+
 		this.config.data.forEach((rowData) => {
 			this.gridArray.push([]);
 			const rowElement = this._addElement(this._rootElement, this.config.CLASS_NAME + '_row');
