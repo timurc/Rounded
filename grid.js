@@ -19,38 +19,46 @@ const DEFAULTS = {
 		q: 'circle',
 		a: 'square',
 		r: 'blank'
-	}
+	}, 
+	isEditable: true,
+	data: [
+		[0,0,0,0,0,0],
+		[0,0,0,0,0,0],
+		[0,0,0,0,0,0],
+		[0,0,0,0,0,0],
+		[0,0,0,0,0,0],
+		[0,0,0,0,0,0]
+	]
 };
 
 export default class Grid {
-	constructor(rootElement, width, height, isEditable, config) {
-		this.gridArray = [];
-		this.width = width;
-		this.height = height;
-		this.isEditable = isEditable;
+	constructor(rootElement, config) {
 		this.config = Object.assign({}, DEFAULTS, config);
+		this.gridArray = [];
 
-		rootElement.classList.add(this.config.CLASS_NAME);
+		this._rootElement = rootElement;
+		this._rootElement.classList.add(this.config.CLASS_NAME);
 
-		for (let rowIndex = 0; rowIndex < width; rowIndex++) {
-			if (!this.gridArray[rowIndex]) {
-				this.gridArray[rowIndex] = [];
-			};
+		this._initGrid();
+		this._addNavigationHandlers();
+	}
 
-			const rowElement = this._addElement(rootElement, this.config.CLASS_NAME + '_row');
+	_initGrid() {
+		this.config.data.forEach((rowData) => {
+			this.gridArray.push([]);
+			const rowElement = this._addElement(this._rootElement, this.config.CLASS_NAME + '_row');
 
-			for (let columnIndex = 0; columnIndex < height; columnIndex++) {
-				const cell = new Cell(0, this.isEditable, this.config);
+			rowData.forEach((cellData) => {
+				const cell = new Cell(cellData, this.config.isEditable, this.config);
 				rowElement.appendChild(cell.el);
-				this._addNavigationHandlers(cell.el, rowIndex, columnIndex);
-				this.gridArray[rowIndex].push(cell);
-			}
-		}
+				this.gridArray[this.gridArray.length - 1].push(cell);
+			});
+		});
 	}
 
 	_addElement(rootElement, className) {
 		const element = document.createElement('div');
-		
+
 		if (className) {
 			element.classList.add(className);
 		}
@@ -58,7 +66,15 @@ export default class Grid {
 		return element;
 	}
 
-	_addNavigationHandlers(el, rowIndex, columnIndex) {
+	_addNavigationHandlers() {
+		this.gridArray.forEach((row, rowIndex) => {
+			row.forEach((cell, columnIndex) => {
+				this._addNavigationHandlersToElement(cell.el, rowIndex, columnIndex);
+			});
+		})
+	}
+
+	_addNavigationHandlersToElement(el, rowIndex, columnIndex) {
 		el.addEventListener('keydown', (event) => {
 			const step = event.altKey ? 10 : 1;
 			const goToEnd = event.metaKey;
