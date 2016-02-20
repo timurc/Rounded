@@ -20,3 +20,11 @@ window.grid2 = new Grid(document.getElementById('Grid-2'), {
 		[5,3,0,6,0,0,0,5,1,1]
 	]
 });
+
+document.getElementById('export').addEventListener('click', () => {
+	document.getElementById('textarea').value = JSON.stringify(window.grid2.data);
+});
+
+document.getElementById('import').addEventListener('click', () => {
+	window.grid2.data = JSON.parse(document.getElementById('textarea').value);
+});
