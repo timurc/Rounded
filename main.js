@@ -3,8 +3,6 @@ import Grid from 'grid';
 require("./rounded.less");
 require("./style.less");
 
-let characters = require('./characters.js').getCharacters();
-
 window.grid = new Grid(document.getElementById('Grid-1'));
 
 window.grid2 = new Grid(document.getElementById('Grid-2'), {

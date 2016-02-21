@@ -1,10 +1,4 @@
-'use strict';
-
-exports.getCharacters = function () {
-	return characters;
-};
-
-let characters = new Array(255);
+const characters = new Array(255);
 
 characters[32] = [	[0],
 					[0],
@@ -134,3 +128,5 @@ characters[351] = [	[0],
 					[5],
 					[3],
 					[5]];
+
+export default characters;

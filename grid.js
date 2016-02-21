@@ -1,4 +1,5 @@
 import DEFAULTS from 'defaults';
+import CHARACTERS from 'characters';
 
 export default class Grid {
 	constructor(rootElement, config) {
