@@ -10,7 +10,7 @@ export default class Grid {
 
 		this.data = this.config.data;
 
-		this._addNavigationHandlers();
+		this._addEventHandlers();
 	}
 
 	set data(data) {
@@ -64,12 +64,43 @@ export default class Grid {
 		return element;
 	}
 
-	_addNavigationHandlers() {
+	_addEventHandlers() {
 		this.gridArray.forEach((row, rowIndex) => {
 			row.forEach((cell, columnIndex) => {
 				this._addNavigationHandlersToElement(cell.el, rowIndex, columnIndex);
+				this._addTypeHandlersToElement(cell.el, rowIndex, columnIndex);
 			});
 		})
+	}
+
+	_addTypeHandlersToElement(el, rowIndex, columnIndex) {
+		el.addEventListener('keypress', (event) => {
+			const keyPressed = event.keyCode || event.which;
+			if (CHARACTERS[keyPressed]) {
+				const char = CHARACTERS[keyPressed];
+				const step = char[0].length;
+
+				char.forEach((charRow, charRowIndex) => {
+					const row = this.gridArray[rowIndex + charRowIndex];
+
+					if (row) {
+						charRow.forEach((charCell, charCellIndex) => {
+							const cell = row[charCellIndex + columnIndex];
+							
+							if (cell) {
+								cell.state = charCell;
+							}
+						});
+					}
+				});
+
+				if (columnIndex + step >= this.gridArray[rowIndex].length) {
+					this.gridArray[rowIndex][this.gridArray[rowIndex].length - 1].el.focus();
+				} else {
+					this.gridArray[rowIndex][columnIndex + step].el.focus();
+				}
+			}
+		});
 	}
 
 	_addNavigationHandlersToElement(el, rowIndex, columnIndex) {
