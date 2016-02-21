@@ -12,13 +12,13 @@ const DEFAULTS = {
 		'rotated'
 	],
 	KEYMAP: {
-		e: 'tr',
-		w: 'tl',
-		s: 'bl',
-		d: 'br',
-		q: 'circle',
-		a: 'square',
-		r: 'blank'
+		1: 'tr',
+		2: 'tl',
+		3: 'bl',
+		4: 'br',
+		5: 'circle',
+		6: 'square',
+		7: 'blank'
 	}, 
 	isEditable: true,
 	data: [
