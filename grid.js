@@ -41,8 +41,15 @@ export default class Grid {
 
 	_initGrid() {
 		this._gridArray = [];
+		let newGridArray;
+		
+		if (Array.isArray(this.config.data)) {
+			newGridArray = this.config.data;
+		} else {
+			newGridArray = this._generateDataArray(this.config.data.width, this.config.data.height);
+		}
 
-		this.config.data.forEach((rowData) => {
+		newGridArray.forEach((rowData) => {
 			this._gridArray.push([]);
 			const rowElement = this._addElement(this._rootElement, this.config.CLASS_NAME + '_row');
 
@@ -52,6 +59,20 @@ export default class Grid {
 				this._gridArray[this._gridArray.length - 1].push(cell);
 			});
 		});
+	}
+
+	_generateDataArray(width, height) {
+		const dataArray = [];
+
+		for (let i = 0; i < height; i++) {
+			dataArray.push([]);
+
+			for (let k = 0; k < width; k++) {
+				dataArray[dataArray.length - 1].push(0);
+			}
+		}
+
+		return dataArray;
 	}
 
 	_addElement(rootElement, className) {
