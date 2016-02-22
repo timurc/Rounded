@@ -76,7 +76,9 @@ export default class Grid {
 	_addTypeHandlersToElement(el, rowIndex, columnIndex) {
 		el.addEventListener('keypress', (event) => {
 			const keyPressed = event.keyCode || event.which;
-			const step = this.typeCharacter(keyPressed, rowIndex, columnIndex);			
+			const step = this._getCharacterWidth(keyPressed);
+
+			this.typeCharacter(keyPressed, rowIndex, columnIndex);			
 
 			if (columnIndex + step >= this._gridArray[rowIndex].length) {
 				this._gridArray[rowIndex][this._gridArray[rowIndex].length - 1].el.focus();
@@ -103,19 +105,28 @@ export default class Grid {
 					});
 				}
 			});
-
-			return char[0].length;
 		}
-
-		return 0;
 	}
 
-	typeString (string, rowIndex, columnIndex) {
-		let position = 0;
+	typeString (string, rowIndex, columnIndex, delay) {
+		let currentPosition = 0;
+		let me = this;
+
 		for (let letter of string)  {
 			const charCode = letter.charCodeAt(0);
-			position += this.typeCharacter(charCode, rowIndex, columnIndex + position);
+			const typePosition = currentPosition + columnIndex;
+			currentPosition += this._getCharacterWidth(charCode);
+			
+			(function(currentPosition) {
+				setTimeout(() => {
+					me.typeCharacter(charCode, rowIndex, currentPosition);
+				}, delay * currentPosition);
+			})(typePosition)
 		};
+	}
+
+	_getCharacterWidth (charCode) {
+		return CHARACTERS[charCode] && CHARACTERS[charCode][0].length;
 	}
 
 	_addNavigationHandlersToElement(el, rowIndex, columnIndex) {
