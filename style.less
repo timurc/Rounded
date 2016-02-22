@@ -10,6 +10,7 @@
 			height: 15px;
 			width: 15px;
 			transition: all 1s;
+			position: relative;
 
 			&-blank {
 				box-sizing: border-box;
@@ -17,7 +18,8 @@
 				border: 7px white solid;
 
 				&:focus {
-					border-color: rgba(255,255,255,.9)
+					border-color: rgba(255,255,255,.9);
+					z-index: 1;
 				}
 			}
 		}
