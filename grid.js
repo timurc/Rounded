@@ -76,31 +76,38 @@ export default class Grid {
 	_addTypeHandlersToElement(el, rowIndex, columnIndex) {
 		el.addEventListener('keypress', (event) => {
 			const keyPressed = event.keyCode || event.which;
-			if (CHARACTERS[keyPressed]) {
-				const char = CHARACTERS[keyPressed];
-				const step = char[0].length;
+			const step = this.typeCharacter(keyPressed, rowIndex, columnIndex);			
 
-				char.forEach((charRow, charRowIndex) => {
-					const row = this._gridArray[rowIndex + charRowIndex];
-
-					if (row) {
-						charRow.forEach((charCell, charCellIndex) => {
-							const cell = row[charCellIndex + columnIndex];
-							
-							if (cell) {
-								cell.state = charCell;
-							}
-						});
-					}
-				});
-
-				if (columnIndex + step >= this._gridArray[rowIndex].length) {
-					this._gridArray[rowIndex][this._gridArray[rowIndex].length - 1].el.focus();
-				} else {
-					this._gridArray[rowIndex][columnIndex + step].el.focus();
-				}
+			if (columnIndex + step >= this._gridArray[rowIndex].length) {
+				this._gridArray[rowIndex][this._gridArray[rowIndex].length - 1].el.focus();
+			} else {
+				this._gridArray[rowIndex][columnIndex + step].el.focus();
 			}
 		});
+	}
+
+	typeCharacter (character, rowIndex, columnIndex) {
+		if (CHARACTERS[character]) {
+			const char = CHARACTERS[character];
+
+			char.forEach((charRow, charRowIndex) => {
+				const row = this._gridArray[rowIndex + charRowIndex];
+
+				if (row) {
+					charRow.forEach((charCell, charCellIndex) => {
+						const cell = row[charCellIndex + columnIndex];
+						
+						if (cell) {
+							cell.state = charCell;
+						}
+					});
+				}
+			});
+
+			return char[0].length;
+		}
+
+		return 0;
 	}
 
 	_addNavigationHandlersToElement(el, rowIndex, columnIndex) {
