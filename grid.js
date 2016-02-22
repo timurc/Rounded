@@ -110,6 +110,14 @@ export default class Grid {
 		return 0;
 	}
 
+	typeString (string, rowIndex, columnIndex) {
+		let position = 0;
+		for (let letter of string)  {
+			const charCode = letter.charCodeAt(0);
+			position += this.typeCharacter(charCode, rowIndex, columnIndex + position);
+		};
+	}
+
 	_addNavigationHandlersToElement(el, rowIndex, columnIndex) {
 		el.addEventListener('keydown', (event) => {
 			const step = event.altKey ? 10 : 1;
