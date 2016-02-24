@@ -3,15 +3,40 @@ import CHARACTERS from 'characters';
 const characterHeight = 4;
 
 export default class Type {
-	constructor(rootElement, string, config) {
-		this._grid = new Grid(rootElement, {
-			data: {
-				height: characterHeight,
-				width: this._getLength(string)
-			}
-		})
+	constructor(rootElement, string, separateWords) {
+		rootElement.classList.add('type');
+		if (separateWords) {
+			const words = string.split(' ');
 
-		this._grid.typeString(string, 0, 0, 50);
+			words.forEach((word) => {
+				const wordWrapper = document.createElement('span');
+				rootElement.appendChild(wordWrapper);
+				wordWrapper.classList.add('type-word');
+
+				for (let letter of word) {
+					const letterWrapper = document.createElement('span');
+					wordWrapper.appendChild(letterWrapper);
+					letterWrapper.classList.add('type-letter');
+
+					this._grid = new Grid(letterWrapper, {
+						data: {
+							height: characterHeight,
+							width: this._getLength(letter)
+						}
+					});
+					this._grid.typeString(letter, 0, 0, 50);
+				}
+			});
+		} else {
+			this._grid = new Grid(rootElement, {
+				data: {
+					height: characterHeight,
+					width: this._getLength(string)
+				}
+			});
+
+			this._grid.typeString(string, 0, 0, 50);			
+		}
 	}
 
 	_getLength(string) {

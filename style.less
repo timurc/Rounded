@@ -44,3 +44,31 @@
 		}
 	}
 }
+
+.type {
+	&-word {
+		display: inline-block;
+		margin-right: 10px;
+	}
+
+	&-letter {
+		display: inline-block;
+		margin-right: 3px;
+	}
+
+	.rounded-grid {
+			
+			&_cell {
+				margin: 0 1px;		
+				height: 15px;
+				width: 15px;
+				transition: all 2s;
+
+				&-blank {
+					background: transparent;
+				}
+			}
+		}
+
+
+}
