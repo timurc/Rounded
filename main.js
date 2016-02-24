@@ -37,6 +37,5 @@ window.grid4 = new Type(document.getElementById('Grid-4'), 'nice to meet you!');
 const headings = document.querySelectorAll('h2');
 
 for (let i = 0; i < headings.length; i++) {
-	console.log(headings[i], headings[i].innerText)
 	new Type(headings[i], headings[i].innerText);
 }
