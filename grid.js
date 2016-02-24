@@ -99,12 +99,15 @@ export default class Grid {
 			const keyPressed = event.keyCode || event.which;
 			const step = this._getCharacterWidth(keyPressed);
 
-			this.typeCharacter(keyPressed, rowIndex, columnIndex);			
+			const hasTyped = this.typeCharacter(keyPressed, rowIndex, columnIndex);			
 
-			if (columnIndex + step >= this._gridArray[rowIndex].length) {
-				this._gridArray[rowIndex][this._gridArray[rowIndex].length - 1].el.focus();
-			} else {
-				this._gridArray[rowIndex][columnIndex + step].el.focus();
+			if (hasTyped) {
+			
+				if (columnIndex + step >= this._gridArray[rowIndex].length) {
+					this._gridArray[rowIndex][this._gridArray[rowIndex].length - 1].el.focus();
+				} else {
+					this._gridArray[rowIndex][columnIndex + step].el.focus();
+				}	
 			}
 		});
 	}
@@ -126,6 +129,8 @@ export default class Grid {
 					});
 				}
 			});
+
+			return true;
 		}
 	}
 
