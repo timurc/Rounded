@@ -96,13 +96,13 @@ export default class Grid {
 
 	_addTypeHandlersToElement(el, rowIndex, columnIndex) {
 		el.addEventListener('keypress', (event) => {
+			event.preventDefault();
 			const keyPressed = event.keyCode || event.which;
 			const step = this._getCharacterWidth(keyPressed);
 
 			const hasTyped = this.typeCharacter(keyPressed, rowIndex, columnIndex);			
 
 			if (hasTyped) {
-			
 				if (columnIndex + step >= this._gridArray[rowIndex].length) {
 					this._gridArray[rowIndex][this._gridArray[rowIndex].length - 1].el.focus();
 				} else {
