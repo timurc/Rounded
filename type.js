@@ -3,7 +3,7 @@ import CHARACTERS from 'characters';
 const characterHeight = 4;
 
 export default class Type {
-	constructor(rootElement, string, separateWords) {
+	constructor(rootElement, string, delay, separateWords) {
 		rootElement.classList.add('type');
 		if (separateWords) {
 			const words = string.split(' ');
@@ -31,7 +31,7 @@ export default class Type {
 						setTimeout(() => {
 							grid.typeString(letter, 0, 0);
 						}, delay);
-					})(50 * letterPosition)
+					})(delay * letterPosition)
 				}
 			});
 		} else {
@@ -42,7 +42,7 @@ export default class Type {
 				}
 			});
 
-			this._grid.typeString(string, 0, 0, 50);			
+			this._grid.typeString(string, 0, 0, delay);			
 		}
 	}
 
