@@ -7,6 +7,7 @@ export default class Type {
 		rootElement.classList.add('type');
 		if (separateWords) {
 			const words = string.split(' ');
+			let letterPosition = 0;
 
 			words.forEach((word) => {
 				const wordWrapper = document.createElement('span');
@@ -17,14 +18,20 @@ export default class Type {
 					const letterWrapper = document.createElement('span');
 					wordWrapper.appendChild(letterWrapper);
 					letterWrapper.classList.add('type-letter');
+					letterPosition++;
 
-					this._grid = new Grid(letterWrapper, {
+					const grid = new Grid(letterWrapper, {
 						data: {
 							height: characterHeight,
 							width: this._getLength(letter)
 						}
 					});
-					this._grid.typeString(letter, 0, 0, 50);
+
+					(function(delay) {
+						setTimeout(() => {
+							grid.typeString(letter, 0, 0);
+						}, delay);
+					})(50 * letterPosition)
 				}
 			});
 		} else {
