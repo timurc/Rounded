@@ -32,7 +32,7 @@ window.grid3 = new Grid(document.getElementById('Grid-3'), {
 	data: { height: 40, width: 40}
 });
 
-window.grid4 = new Type(document.getElementById('Grid-4'), 'nice to meet you!', true);
+window.grid4 = new Type(document.getElementById('Grid-4'), 'nice to meet you!');
 
 const headings = document.querySelectorAll('h2');
 
