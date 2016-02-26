@@ -142,11 +142,9 @@ export default class Grid {
 			const typePosition = currentPosition + columnIndex;
 			currentPosition += this._getCharacterWidth(charCode);
 			
-			(function(currentPosition, grid) {
-				setTimeout(() => {
-					grid.typeCharacter(charCode, rowIndex, currentPosition);
-				}, delay * currentPosition);
-			})(typePosition, this)
+			setTimeout(() => {
+				this.typeCharacter(charCode, rowIndex, typePosition);
+			}, delay * currentPosition);
 		};
 	}
 

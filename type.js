@@ -27,11 +27,9 @@ export default class Type {
 						}
 					});
 
-					(function(delay) {
-						setTimeout(() => {
-							grid.typeString(letter, 0, 0);
-						}, delay);
-					})(delay * letterPosition)
+					setTimeout(() => {
+						grid.typeString(letter, 0, 0);
+					}, delay * letterPosition);
 				}
 			});
 		} else {
