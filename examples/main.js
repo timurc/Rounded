@@ -1,8 +1,8 @@
-import Grid from 'grid';
-import Type from 'type';
+import Grid from 'src/grid';
+import Type from 'src/type';
 
-require("./rounded.less");
-require("./style.less");
+require("src/rounded.less");
+require("examples/style.less");
 
 window.grid = new Grid(document.getElementById('Grid-1'));
 

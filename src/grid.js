@@ -1,5 +1,5 @@
-import DEFAULTS from 'defaults';
-import CHARACTERS from 'characters';
+import DEFAULTS from 'src/defaults';
+import CHARACTERS from 'src/characters';
 
 export default class Grid {
 	constructor(rootElement, config) {
