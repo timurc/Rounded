@@ -1,9 +1,12 @@
 
 module.exports = {
-    entry: "./examples/main.js",
+    entry: {
+        main: "./examples/main.js",
+        type: "./examples/type-edit.js"
+    },
     output: {
         path: __dirname,
-        filename: "bundle.js"
+        filename: "[name].bundle.js"
     },
     devtool: 'inline-source-map',
     resolve: {
