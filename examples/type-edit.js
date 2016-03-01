@@ -1,5 +1,6 @@
 import Grid from 'src/grid';
 import Type from 'src/type';
+import TypeEdit from 'src/type-edit';
 
 require("src/rounded.less");
 require("examples/style.less");
