@@ -1,5 +1,7 @@
+@import 'colors';
+
 body {
-	background: #ededed;
+	background: @color3;
 	margin: 0;
 }
 
@@ -23,10 +25,10 @@ main {
 			width: 15px;
 			transition: all 1s;
 			position: relative;
+			background: @color1;
 
 			&-blank {
 				box-sizing: border-box;
-				background: rgba(255,0,0,1);
 				border: 7px white solid;
 
 				&:focus {
@@ -52,7 +54,7 @@ main {
 			height: 15px;
 			width: 15px;
 			transition: all 2s;
-			background: green;
+			background: @color5;
 
 			&-blank {
 				background: transparent;
