@@ -14,7 +14,6 @@ export default class TypeEdit {
 		el.appendChild(this._list);
 
 		CHARACTERS.forEach((character, index) => {
-			console.log(character, index);
 			if (character) {
 				const container = document.createElement('li');
 				const charCode = document.createElement('div');
