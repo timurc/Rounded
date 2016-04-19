@@ -2,7 +2,8 @@
 module.exports = {
     entry: {
         main: "./examples/main.js",
-        type: "./examples/type-edit.js"
+        type: "./examples/type-edit.js",
+        print: "./examples/print.js"
     },
     output: {
         path: __dirname,
