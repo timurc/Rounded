@@ -11,11 +11,12 @@ export default {
 		'rotated'
 	],
 	KEYMAP: {
-		1: 'tr',
-		2: 'tl',
-		3: 'bl',
-		4: 'br',
-		5: 'circle',
+		0: 'blank',
+		1: 'bl',
+		2: 'br',
+		3: 'circle',
+		4: 'tl',
+		5: 'tr',
 		6: 'square',
 		7: 'blank'
 	}, 
