@@ -14,8 +14,10 @@ window.grid = new Grid(printDisplay, {
 printDisplay.querySelector('.rounded-grid_cell').focus();
 
 window.addEventListener('keydown', (event) => {
-	event.preventDefault();
-
+	if (event.code === 'Backspace') {
+		event.preventDefault();
+	}
+	
     if (event.code === 'F13') {
     	window.print();
 
