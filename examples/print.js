@@ -8,5 +8,5 @@ require("examples/print.less");
 console.log('hello world!')
 
 window.grid3 = new Grid(document.getElementById('printDisplay'), {
-	data: { height: 40, width: 40}
+	data: { height: 28, width: 28}
 });

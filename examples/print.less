@@ -1,2 +1,61 @@
-body {
+
+
+@media print {
+	main {
+		border: 1px solid #fefefe;
+    	margin-top: 10px;
+    	font-family: "AverageMono";
+	}
+
+	.print_display {
+		margin-top: 0;
+
+		.rounded-grid {
+			&_row {
+				justify-content: center;
+			}
+
+			&_cell {
+
+				height: 19px;
+				width: 19px;
+
+				&-blank {
+					background: #e5e5e5;
+				}
+			}
+		}
+	}
+
+	.print_label {
+		margin-left: 8px;
+    	margin-top: 285px;
+    	font-size: 10pt;
+	}
+}
+
+@media screen {
+
+	body {
+		background: black;
+		margin: 0;
+	}
+
+	.print_display {
+		.rounded-grid {
+			&_row {
+			}
+
+			&_cell {
+				background: white;
+				height: 20px;
+				width: 20px;
+
+				&-blank {
+					background: rgba(255,255,255,.5);
+				}
+			}
+		}
+	}
+
 }
