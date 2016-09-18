@@ -6,10 +6,11 @@ module.exports = {
         print: "./examples/print.js"
     },
     output: {
-        path: __dirname,
-        filename: "[name].bundle.js"
+        path: __dirname + '/dist',
+        filename: "[name].bundle.js",
+        publicPath: '/dist'
     },
-    devtool: 'inline-source-map',
+    devtool: 'cheap-module-eval-source-map',
     resolve: {
         root: __dirname,
         extensions: ['', '.js']

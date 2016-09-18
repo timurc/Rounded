@@ -1,7 +1,7 @@
 {
   "name": "rounded",
   "version": "0.0.1",
-  "description": "",
+  "description": "Tool for pattern based typography.",
   "main": "main.js",
   "dependencies": {},
   "devDependencies": {
@@ -17,7 +17,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
+    "build": "NODE_ENV=production webpack --progress -p",
     "start": "webpack-dev-server --progress --colors --port 8000"
   },
   "author": "Timur Çelikel",
