@@ -32,10 +32,18 @@ window.grid3 = new Grid(document.getElementById('Grid-3'), {
 	data: { height: 40, width: 40}
 });
 
-window.grid4 = new Type(document.getElementById('Grid-4'), 'nice to meet you!', 20);
+window.grid4 = new Type({
+	el: document.getElementById('Grid-4'), 
+	text: 'nice to meet you!', 
+	delay: 20 
+});
 
 const headings = document.querySelectorAll('h2');
 
 for (let i = 0; i < headings.length; i++) {
-	new Type(headings[i], headings[i].innerText, 100, true);
+	new Type({
+		el: headings[i], 
+		text: headings[i].innerText,
+		delay: 100
+	});
 }

@@ -3,15 +3,16 @@ import CHARACTERS from 'src/characters';
 const characterHeight = 4;
 
 export default class Type {
-	constructor(rootElement, string, delay, separateWords) {
-		rootElement.classList.add('type');
+	constructor({ el, text, delay = 100, separateWords = true }) {
+
+		el.classList.add('type');
 		if (separateWords) {
-			const words = string.split(' ');
+			const words = text.split(' ');
 			let letterPosition = 0;
 
 			words.forEach((word) => {
 				const wordWrapper = document.createElement('span');
-				rootElement.appendChild(wordWrapper);
+				el.appendChild(wordWrapper);
 				wordWrapper.classList.add('type-word');
 
 				for (let letter of word) {
@@ -33,14 +34,14 @@ export default class Type {
 				}
 			});
 		} else {
-			this._grid = new Grid(rootElement, {
+			this._grid = new Grid(el, {
 				data: {
 					height: characterHeight,
-					width: this._getLength(string)
+					width: this._getLength(text)
 				}
 			});
 
-			this._grid.typeString(string, 0, 0, delay);			
+			this._grid.typeString(text, 0, 0, delay);			
 		}
 	}
 

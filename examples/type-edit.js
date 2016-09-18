@@ -8,7 +8,12 @@ require("examples/style.less");
 const headings = document.querySelectorAll('h2');
 
 for (let i = 0; i < headings.length; i++) {
-	new Type(headings[i], headings[i].innerText, 100, true);
+	new Type({
+		el: headings[i], 
+		text: headings[i].innerText, 
+		delay: 100, 
+		separateWords: true
+	});
 }
 
 const typeEditList = document.getElementById('typeList');

@@ -15,7 +15,10 @@ It will generate a matrix of DOM elements that render the according letters when
 To render a string we need a string and a DOM element where to place the output. The following example will render the `hello world` to the DOM node with the ID `grid`:
 
 ```javascript
-var grid = new Type(document.getElementById('grid'), 'hello world');
+var grid = new Type({
+  el: document.getElementById('grid'), 
+  text: 'hello world'
+});
 ```
 
 In this example all h2 elements are beeing replaced by a *Rounded* text:
@@ -24,6 +27,9 @@ In this example all h2 elements are beeing replaced by a *Rounded* text:
 const headings = document.querySelectorAll('h2');
 
 for (let i = 0; i < headings.length; i++) {
-	new Type(headings[i], headings[i].innerText, 100, true);
+	new Type({
+    el: headings[i], 
+    text: headings[i].innerText
+  });
 }
 ```

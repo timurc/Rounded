@@ -34,7 +34,12 @@ export default class TypeEdit {
 
 		container.innerHTML = template;
 
-		new Type(container, String.fromCharCode(charCode), 100, true);
+		new Type({
+			el: container, 
+			text: String.fromCharCode(charCode), 
+			delay: 100, 
+			separateWords: true
+		});
 
 		return container;
 	}
