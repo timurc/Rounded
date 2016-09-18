@@ -8,7 +8,7 @@ module.exports = {
     output: {
         path: __dirname + '/dist',
         filename: "[name].bundle.js",
-        publicPath: '/Rounded/dist'
+        publicPath: '/dist'
     },
     devtool: 'cheap-module-eval-source-map',
     resolve: {
