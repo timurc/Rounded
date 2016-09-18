@@ -13,23 +13,29 @@ export default class TypeEdit {
 		this._list.classList.add('type-edit-list');
 		el.appendChild(this._list);
 
-		CHARACTERS.forEach((character, index) => {
-			if (character) {
-				const container = document.createElement('li');
-				const charCode = document.createElement('div');
-				const heading = document.createElement('h3');
-
-				container.classList.add('type-edit-list-item');
-				charCode.classList.add('type-edit-char_code');
-
-				charCode.innerText = index;
-				heading.innerText = ((index === 32) ? '(space)' : String.fromCharCode(index))
-
-				container.appendChild(charCode);
-				container.appendChild(heading);
-				new Type(container, String.fromCharCode(index), 100, true);
-				this._list.appendChild(container);
+		CHARACTERS.forEach((character, charCode) => {
+			if (character, charCode) {
+				const character = this._generateCharacterContainer(character, charCode);
+				this._list.appendChild(character);
 			}
 		});
+	}
+
+
+
+	_generateCharacterContainer (character, charCode) {
+		const title = ((charCode === 32) ? '(space)' : String.fromCharCode(charCode));
+		const container = document.createElement('li');
+		container.classList.add('type-edit-list-item');
+
+		const template = `
+			<div class="type-edit-char_code">${charCode}</div>
+			<h3>${title}</h3>`
+
+		container.innerHTML = template;
+
+		new Type(container, String.fromCharCode(charCode), 100, true);
+
+		return container;
 	}
 }
