@@ -157,8 +157,8 @@ export default class Grid {
 			const step = event.altKey ? 10 : 1;
 			const goToEnd = event.metaKey;
 
-			switch (event.keyIdentifier) {
-				case 'Up':
+			switch (event.key) {
+				case 'ArrowUp':
 					if (goToEnd || rowIndex - step < 0) {
 						this._gridArray[0][columnIndex].el.focus();
 					} else {
@@ -166,7 +166,7 @@ export default class Grid {
 					}
 					event.preventDefault();
 					break;
-				case 'Down':
+				case 'ArrowDown':
 					if (goToEnd || rowIndex + step >= this._gridArray.length) {
 						this._gridArray[this._gridArray.length - 1][columnIndex].el.focus();
 					} else {
@@ -174,7 +174,7 @@ export default class Grid {
 					}
 					event.preventDefault();
 					break;
-				case 'Right':
+				case 'ArrowRight':
 					if (goToEnd || columnIndex + step >= this._gridArray[rowIndex].length) {
 						this._gridArray[rowIndex][this._gridArray[rowIndex].length - 1].el.focus();
 					} else {
@@ -182,7 +182,7 @@ export default class Grid {
 					}
 					event.preventDefault();
 					break;
-				case 'Left':
+				case 'ArrowLeft':
 					if (goToEnd || columnIndex - step < 0) {
 						this._gridArray[rowIndex][0].el.focus();
 					} else {
