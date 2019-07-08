@@ -1,0 +1,34 @@
+body {
+    background: #9210ff;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.rounded-grid {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+
+    &_row {
+        flex: 1 0 auto;
+    }
+
+    &_cell {
+        background: white;
+        flex: 1 0 auto;
+        width: auto;
+        height: auto;
+
+        &:focus {
+            outline: solid red 5px;
+        }
+
+        &-blank {
+            background: rgba(255,255,255,.5);
+        }
+    }
+}
