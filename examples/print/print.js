@@ -2,7 +2,6 @@ import Grid from 'src/grid';
 import Type from 'src/type';
 
 require('src/rounded.less');
-require('src/rounded.less');
 require('./print.less');
 
 var printDisplay = document.getElementById('printDisplay');
