@@ -4,6 +4,7 @@ module.exports = {
         type: './examples/type-edit.js',
         print: './examples/print/print.js',
         something2019: './examples/something2019/index.js',
+        client: './client/index.js',
     },
     output: {
         path: __dirname + '/dist',

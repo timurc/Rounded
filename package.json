@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "Tool for pattern based typography.",
   "main": "main.js",
-  "dependencies": {},
+  "dependencies": {
+    "ws": "^7.1.0"
+  },
   "devDependencies": {
     "babel-core": "^5.8.34",
     "babel-loader": "^5.4.0",
@@ -18,7 +20,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "NODE_ENV=production webpack --progress -p",
-    "start": "webpack-dev-server --progress --colors --port 8000"
+    "start": "webpack-dev-server --progress --colors --port 8000",
+    "server": "node server/server.js"
   },
   "author": "Timur Çelikel",
   "license": "MIT"
