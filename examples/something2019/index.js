@@ -12,11 +12,6 @@ window.grid = new Grid(grid, {
     data: getGridSize({ el: grid, cellHeight: CELL_HEIGHT, cellWidth: CELL_WIDTH }),
 });
 
-console.log(grid);
-
-console.log(getGridSize({ el: grid, cellHeight: CELL_HEIGHT, cellWidth: CELL_WIDTH }));
-
 function getGridSize({ el, cellHeight, cellWidth }) {
-    console.log(el, cellHeight, cellWidth);
     return { height: Math.round(el.offsetHeight / cellHeight), width: Math.round(el.offsetWidth / cellWidth) };
 }
