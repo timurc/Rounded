@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
     entry: {
         main: './examples/main.js',
@@ -13,19 +15,29 @@ module.exports = {
     },
     devtool: 'cheap-module-eval-source-map',
     resolve: {
-        root: __dirname,
-        extensions: ['', '.js'],
+        modules: [path.join(__dirname), 'node_modules'],
+        extensions: ['.js'],
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.less$/,
-                loader: 'style!css!less',
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                    },
+                    {
+                        loader: 'less-loader',
+                    },
+                ],
             },
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'babel',
+                use: [{ loader: 'babel-loader' }],
             },
         ],
     },

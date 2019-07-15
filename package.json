@@ -4,18 +4,17 @@
   "description": "Tool for pattern based typography.",
   "main": "main.js",
   "dependencies": {
+    "@babel/core": "^7.5.4",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.0.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.7.2",
     "ws": "^7.1.0"
-  },
-  "devDependencies": {
-    "babel-core": "^5.8.34",
-    "babel-loader": "^5.4.0",
-    "css-loader": "^0.23.0",
-    "extract-text-webpack-plugin": "^0.9.1",
-    "less": "^2.5.3",
-    "less-loader": "^2.2.2",
-    "style-loader": "^0.13.0",
-    "webpack": "^1.12.9",
-    "webpack-dev-server": "^1.14.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
