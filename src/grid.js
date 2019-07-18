@@ -14,12 +14,15 @@ export default class Grid {
     }
 
     set data(data) {
+        console.log('setting data!');
         if (!this._gridArray) {
             this._initGrid();
         } else {
+            console.log('updating!');
+
             this._gridArray.forEach((row, rowIndex) => {
                 row.forEach((cell, columnIndex) => {
-                    cell.state = data[rowIndex][columnIndex];
+                    cell.setStateWithoutUpdate(data[rowIndex][columnIndex]);
                 });
             });
         }
@@ -49,12 +52,19 @@ export default class Grid {
             newGridArray = this._generateDataArray(this.config.data.width, this.config.data.height);
         }
 
-        newGridArray.forEach(rowData => {
+        newGridArray.forEach((rowData, rowIndex) => {
             this._gridArray.push([]);
             const rowElement = this._addElement(this._rootElement, this.config.CLASS_NAME + '_row');
 
-            rowData.forEach(cellData => {
-                const cell = new Cell(cellData, this.config.isEditable, this.config);
+            rowData.forEach((cellData, columnIndex) => {
+                const cell = new Cell(
+                    cellData,
+                    this.config.isEditable,
+                    this.config,
+                    this.config.updated,
+                    rowIndex,
+                    columnIndex
+                );
                 rowElement.appendChild(cell.el);
                 this._gridArray[this._gridArray.length - 1].push(cell);
             });
@@ -129,7 +139,6 @@ export default class Grid {
                     });
                 }
             });
-
             return true;
         }
     }
@@ -195,16 +204,32 @@ export default class Grid {
 }
 
 class Cell {
-    constructor(state, isEditable, config) {
+    constructor(state, isEditable, config, updated, rowIndex, columnIndex) {
         this.el = document.createElement('div');
         this.config = config;
+        this.updated = updated;
+        this.rowIndex = rowIndex;
+        this.columnIndex = columnIndex;
 
         if (isEditable) {
             this.el.tabIndex = 1;
             this._addEventHandlers();
         }
 
+        this.isInitialized = false;
         this.state = state;
+
+        this.setStateWithoutUpdate = state => {
+            // prevent setting states (DOM access) if not necessary
+            if (state === this._state) {
+                console.log('doing nothing');
+                return;
+            }
+            console.log('updating silently');
+
+            this._state = state;
+            this._setElementState();
+        };
     }
 
     set state(state) {
@@ -214,6 +239,10 @@ class Cell {
         }
 
         this._state = state;
+        if (this.updated && this.isInitialized) {
+            this.updated({ state: state, rowIndex: this.rowIndex, columnIndex: this.columnIndex });
+        }
+        this.isInitialized = true;
         this._setElementState();
     }
 

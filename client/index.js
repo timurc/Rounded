@@ -2,33 +2,45 @@ require('src/rounded.less');
 require('./style.less');
 
 import Grid from 'src/grid';
-
-const CELL_HEIGHT = 30;
-const CELL_WIDTH = 30;
+const gridEl = document.getElementById('grid');
+let grid;
 
 const connectionsDisplay = document.getElementById('noOfConnections');
 
-var grid = document.getElementById('grid');
-
 const userID = Math.random();
-
-window.grid = new Grid(grid, {
-    data: { height: CELL_HEIGHT, width: CELL_WIDTH },
-});
 
 const connection = new WebSocket('ws://localhost:8080');
 
 connection.onopen = e => {
-    console.log('hello, we did connect.', e);
-
     connection.send(JSON.stringify({ userID: userID }));
 };
 
 connection.onmessage = e => {
-    console.log('I got a message!', e);
     const messateData = JSON.parse(e.data);
+    console.log('received');
 
     if (messateData.clientCount) {
         connectionsDisplay.innerText = messateData.clientCount;
     }
+
+    if (messateData.canvas) {
+        console.log('got some grid');
+        if (grid) {
+            console.log('updating');
+            grid.data = messateData.canvas;
+        } else {
+            console.log('initializing');
+            grid = new Grid(gridEl, {
+                data: messateData.canvas,
+                updated: updated,
+            });
+            console.log(grid);
+        }
+    }
 };
+
+function updated(data) {
+    if (connection.readyState === 1) {
+        connection.send(JSON.stringify({ type: 'cellUpdate', data: data }));
+    }
+}
