@@ -1,6 +1,8 @@
 const path = require('path');
+const env = process.env.NODE_ENV;
 
 module.exports = {
+    mode: env || 'development',
     entry: {
         main: './examples/main.js',
         type: './examples/type-edit.js',
