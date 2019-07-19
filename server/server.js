@@ -1,3 +1,4 @@
+const throttle = require('lodash.throttle');
 const WebSocket = require('ws');
 
 console.log(`
@@ -52,9 +53,19 @@ function sendMessageToAllClients(message) {
     wss.clients.forEach(client => client.send(JSON.stringify(message)));
 }
 
+const sendMessageToAllClientsThrottled = throttle(
+    message => {
+        console.log('sending');
+        sendMessageToAllClients(message);
+    },
+    500,
+    { leading: false }
+);
+
 function updateCanvas(data) {
     canvas[data.rowIndex][data.columnIndex] = data.state;
-    sendMessageToAllClients({ canvas: canvas });
+    console.log('updating');
+    sendMessageToAllClientsThrottled({ canvas: canvas });
 }
 
 function generateDataArray(width, height) {

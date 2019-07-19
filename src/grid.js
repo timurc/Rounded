@@ -224,11 +224,17 @@ class Cell {
 
         this.setStateWithoutUpdate = state => {
             // prevent setting states (DOM access) if not necessary
-            if (state === this._state) {
+            if (JSON.stringify(state) === JSON.stringify(this._state)) {
                 return;
+            } else {
             }
 
-            this._state = state;
+            if (typeof this.mainColor !== 'undefined' && typeof state !== 'object') {
+                this._state = { state: state, color: this.mainColor };
+            } else {
+                this._state = state;
+            }
+
             this._setElementState();
         };
 
