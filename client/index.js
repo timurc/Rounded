@@ -9,7 +9,7 @@ const connectionsDisplay = document.getElementById('noOfConnections');
 
 const userID = Math.random();
 
-const connection = new WebSocket('ws://localhost:8080');
+const connection = new WebSocket('ws://192.168.178.20:8080');
 
 connection.onopen = e => {
     connection.send(JSON.stringify({ userID: userID }));
