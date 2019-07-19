@@ -9,7 +9,11 @@ const connectionsDisplay = document.getElementById('noOfConnections');
 
 const userID = Math.random();
 
-const connection = new WebSocket('ws://192.168.178.20:8080');
+console.log(process.env.NODE_ENV);
+const server =
+    process.env.NODE_ENV === 'development' ? 'ws://192.168.178.20:63032' : 'ws://rounded.volligohne.de:63032';
+
+const connection = new WebSocket(server);
 
 connection.onopen = e => {
     connection.send(JSON.stringify({ userID: userID }));
@@ -26,7 +30,6 @@ connection.onmessage = e => {
         if (grid) {
             grid.data = messateData.canvas;
         } else {
-            console.log(messateData.colorIndex);
             grid = new Grid(gridEl, {
                 data: messateData.canvas,
                 updated: updated,

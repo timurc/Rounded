@@ -20,7 +20,7 @@ let colorIndex = 0;
 
 const canvas = generateDataArray(GRID_WIDTH, GRID_HEIGHT);
 
-const wss = new WebSocket.Server({ port: 8080 });
+const wss = new WebSocket.Server({ port: 63032 });
 
 wss.on('connection', function connection(ws, req) {
     ws.id = req.headers['sec-websocket-key'];
