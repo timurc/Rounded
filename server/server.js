@@ -15,6 +15,8 @@ console.log(`
 
 const GRID_WIDTH = 30;
 const GRID_HEIGHT = 30;
+const COLOR_COUNT = 6;
+let colorIndex = 0;
 
 const canvas = generateDataArray(GRID_WIDTH, GRID_HEIGHT);
 
@@ -38,7 +40,8 @@ wss.on('connection', function connection(ws, req) {
     });
     updateClientCount();
 
-    ws.send(JSON.stringify({ canvas: canvas }));
+    ws.send(JSON.stringify({ canvas: canvas, colorIndex: colorIndex % COLOR_COUNT }));
+    colorIndex++;
 });
 
 function updateClientCount() {
@@ -61,7 +64,8 @@ function generateDataArray(width, height) {
         dataArray.push([]);
 
         for (let k = 0; k < width; k++) {
-            dataArray[dataArray.length - 1].push(0);
+            dataArray[dataArray.length - 1].push({ state: 0, color: undefined });
+            // dataArray[dataArray.length - 1].push(0);
         }
     }
 

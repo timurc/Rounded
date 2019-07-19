@@ -8,18 +8,20 @@ export default class Grid {
         this._rootElement = rootElement;
         this._rootElement.classList.add(this.config.CLASS_NAME);
 
+        if (typeof this.config.mainColor !== 'undefined') {
+            this.mainColor = config.mainColor;
+            this._rootElement.classList.add('color--' + config.mainColor);
+        }
+
         this.data = this.config.data;
 
         this._addEventHandlers();
     }
 
     set data(data) {
-        console.log('setting data!');
         if (!this._gridArray) {
             this._initGrid();
         } else {
-            console.log('updating!');
-
             this._gridArray.forEach((row, rowIndex) => {
                 row.forEach((cell, columnIndex) => {
                     cell.setStateWithoutUpdate(data[rowIndex][columnIndex]);
@@ -63,7 +65,8 @@ export default class Grid {
                     this.config,
                     this.config.updated,
                     rowIndex,
-                    columnIndex
+                    columnIndex,
+                    this.mainColor
                 );
                 rowElement.appendChild(cell.el);
                 this._gridArray[this._gridArray.length - 1].push(cell);
@@ -204,12 +207,13 @@ export default class Grid {
 }
 
 class Cell {
-    constructor(state, isEditable, config, updated, rowIndex, columnIndex) {
+    constructor(state, isEditable, config, updated, rowIndex, columnIndex, mainColor) {
         this.el = document.createElement('div');
         this.config = config;
         this.updated = updated;
         this.rowIndex = rowIndex;
         this.columnIndex = columnIndex;
+        this.mainColor = mainColor;
 
         if (isEditable) {
             this.el.tabIndex = 1;
@@ -217,33 +221,31 @@ class Cell {
         }
 
         this.isInitialized = false;
-        this.state = state;
 
         this.setStateWithoutUpdate = state => {
             // prevent setting states (DOM access) if not necessary
             if (state === this._state) {
-                console.log('doing nothing');
                 return;
             }
-            console.log('updating silently');
 
             this._state = state;
             this._setElementState();
         };
+
+        this.state = state;
     }
 
     set state(state) {
-        // prevent setting states (DOM access) if not necessary
-        if (state === this._state) {
-            return;
-        }
+        this.setStateWithoutUpdate(state);
 
-        this._state = state;
         if (this.updated && this.isInitialized) {
-            this.updated({ state: state, rowIndex: this.rowIndex, columnIndex: this.columnIndex });
+            let stateToUpdate = state;
+            if (typeof this.mainColor !== 'undefined') {
+                stateToUpdate = { color: this.mainColor, state: state };
+            }
+            this.updated({ state: stateToUpdate, rowIndex: this.rowIndex, columnIndex: this.columnIndex });
         }
         this.isInitialized = true;
-        this._setElementState();
     }
 
     get state() {
@@ -261,8 +263,17 @@ class Cell {
     }
 
     _setElementState() {
-        this.el.className = `${this.config.CLASS_NAME}_cell ${this.config.CLASS_NAME}_cell-${
-            this.config.SHAPES[this.state]
-        }`;
+        let className = `${this.config.CLASS_NAME}_cell`;
+        // cell has separate color attached
+        if (typeof this.state === 'object') {
+            className += ` ${this.config.CLASS_NAME}_cell-${this.config.SHAPES[this.state.state]} ${
+                this.config.CLASS_NAME
+            }_cell-color--${this.state.color}`;
+        } else {
+            // only shape
+            className += ` ${this.config.CLASS_NAME}_cell-${this.config.SHAPES[this.state]}`;
+        }
+
+        this.el.className = className;
     }
 }

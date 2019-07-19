@@ -17,24 +17,21 @@ connection.onopen = e => {
 
 connection.onmessage = e => {
     const messateData = JSON.parse(e.data);
-    console.log('received');
 
     if (messateData.clientCount) {
         connectionsDisplay.innerText = messateData.clientCount;
     }
 
     if (messateData.canvas) {
-        console.log('got some grid');
         if (grid) {
-            console.log('updating');
             grid.data = messateData.canvas;
         } else {
-            console.log('initializing');
+            console.log(messateData.colorIndex);
             grid = new Grid(gridEl, {
                 data: messateData.canvas,
                 updated: updated,
+                mainColor: messateData.colorIndex,
             });
-            console.log(grid);
         }
     }
 };

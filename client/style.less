@@ -1,5 +1,16 @@
+@c0: #ff0;
+@c1: #0ff;
+@c2: #0f0;
+@c3: #f00;
+@c4: #0f0;
+@c5: #00f;
+
+
+@outlineWidth: 4px;
+
 body {
-    background: #9210ff;
+    background: #f8f9f6;
+    color: black;
     margin: 0;
 }
 
@@ -18,13 +29,73 @@ body {
     &_cell {
         height: 1.5rem;
         width: 1.5rem;
+        transition: background 1s, border-radius 1s;
+        background: black;
 
-        &:focus {
-            outline: solid #6eff00 5px;
+        .color--0 & {
+            &:focus {
+                outline: solid @c0 @outlineWidth;
+            }
+        }
+
+        .color--1 & {
+            &:focus {
+                outline: solid @c1 @outlineWidth;
+            }
+        }
+
+        .color--2 & {
+            &:focus {
+                outline: solid @c2 @outlineWidth;
+            }
+        }
+
+        .color--3 & {
+            &:focus {
+                outline: solid @c3 @outlineWidth;
+            }
+        }
+
+        .color--4 & {
+            &:focus {
+                outline: solid @c4 @outlineWidth;
+            }
+        }
+
+        .color--5 & {
+            &:focus {
+                outline: solid @c5 @outlineWidth;
+            }
+        }
+
+        &-color {
+            &--0 {
+                background: @c0;
+            }
+
+            &--1 {
+                background: @c1;
+            }
+
+            &--2 {
+                background: @c2;
+            }
+
+            &--3 {
+                background: @c3;
+            }
+
+            &--4 {
+                background: @c4;
+            }
+
+            &--5 {
+                background: @c5;
+            }
         }
 
         &-blank {
-            background: rgba(255,255,255,.1);
+            background: white;
         }
     }
 }
@@ -33,5 +104,4 @@ body {
     position: fixed;
     top: 1rem;
     left: 1rem;
-    color: white;
 }
