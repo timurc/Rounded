@@ -58,7 +58,7 @@ const sendMessageToAllClientsThrottled = throttle(
         console.log('sending');
         sendMessageToAllClients(message);
     },
-    500,
+    200,
     { leading: false }
 );
 
