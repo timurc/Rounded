@@ -9,7 +9,6 @@ const connectionsDisplay = document.getElementById('noOfConnections');
 
 const userID = Math.random();
 
-console.log(process.env.NODE_ENV);
 const server =
     process.env.NODE_ENV === 'development' ? 'ws://192.168.178.20:63032' : 'ws://rounded.volligohne.de:63032';
 

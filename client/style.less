@@ -12,6 +12,7 @@ body {
     background: #f8f9f6;
     color: black;
     margin: 0;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 * {
@@ -104,4 +105,41 @@ body {
     position: fixed;
     top: 1rem;
     left: 1rem;
+    pointer-events: none;
+    font-size: .8rem;
+
+    ul, ol {
+        margin: .5em 0;
+    }
+
+    li {
+        margin-bottom: .2em;
+    }
+
+    &-example {
+        display: inline-block;
+        background: black;
+        height: .8em;
+        width: .8em;
+
+        &--1 {
+            border-radius: 0 0 0 100%;
+        }
+
+        &--2 {
+            border-radius: 0 0 100% 0;
+        }
+
+        &--3 {
+            border-radius: 100%;
+        }
+
+        &--4 {
+            border-radius: 100% 0 0 0;
+        }
+
+        &--5 {
+            border-radius: 0 100% 0 0;
+        }
+    }
 }
