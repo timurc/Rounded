@@ -10,7 +10,7 @@ const connectionsDisplay = document.getElementById('noOfConnections');
 const userID = Math.random();
 
 const server =
-    process.env.NODE_ENV === 'development' ? 'ws://192.168.178.20:32234' : 'wss://rounded.volligohne.de:32234';
+    process.env.NODE_ENV === 'development' ? 'ws://192.168.178.20:45300' : 'wss://rounded.volligohne.de:45300';
 
 const connection = new WebSocket(server);
 

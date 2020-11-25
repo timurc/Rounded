@@ -14,7 +14,7 @@ console.log(`
 
 `);
 
-const PORT = 32234;
+const PORT = 45300;
 
 const GRID_WIDTH = 30;
 const GRID_HEIGHT = 30;
@@ -23,7 +23,7 @@ let colorIndex = 0;
 
 const canvas = generateDataArray(GRID_WIDTH, GRID_HEIGHT);
 
-const wss = new WebSocket.Server({ port: 32234 });
+const wss = new WebSocket.Server({ port: PORT });
 
 console.log('webserver started at ' + PORT);
 
