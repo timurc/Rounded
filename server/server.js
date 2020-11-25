@@ -14,6 +14,8 @@ console.log(`
 
 `);
 
+const PORT = 32234;
+
 const GRID_WIDTH = 30;
 const GRID_HEIGHT = 30;
 const COLOR_COUNT = 6;
@@ -21,7 +23,9 @@ let colorIndex = 0;
 
 const canvas = generateDataArray(GRID_WIDTH, GRID_HEIGHT);
 
-const wss = new WebSocket.Server({ port: 45300 });
+const wss = new WebSocket.Server({ port: 32234 });
+
+console.log('webserver started at ' + PORT);
 
 wss.on('connection', function connection(ws, req) {
     ws.id = req.headers['sec-websocket-key'];
