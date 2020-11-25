@@ -10,15 +10,15 @@ const connectionsDisplay = document.getElementById('noOfConnections');
 const userID = Math.random();
 
 const server =
-    process.env.NODE_ENV === 'development' ? 'ws://192.168.178.20:63032' : 'ws://rounded.volligohne.de:63032';
+    process.env.NODE_ENV === 'development' ? 'ws://192.168.178.20:45300' : 'ws://rounded.volligohne.de:45300';
 
 const connection = new WebSocket(server);
 
-connection.onopen = e => {
+connection.onopen = (e) => {
     connection.send(JSON.stringify({ userID: userID }));
 };
 
-connection.onmessage = e => {
+connection.onmessage = (e) => {
     const messateData = JSON.parse(e.data);
 
     if (messateData.clientCount) {

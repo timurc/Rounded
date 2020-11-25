@@ -21,7 +21,7 @@ let colorIndex = 0;
 
 const canvas = generateDataArray(GRID_WIDTH, GRID_HEIGHT);
 
-const wss = new WebSocket.Server({ port: 63032 });
+const wss = new WebSocket.Server({ port: 45300 });
 
 wss.on('connection', function connection(ws, req) {
     ws.id = req.headers['sec-websocket-key'];
@@ -50,11 +50,11 @@ function updateClientCount() {
 }
 
 function sendMessageToAllClients(message) {
-    wss.clients.forEach(client => client.send(JSON.stringify(message)));
+    wss.clients.forEach((client) => client.send(JSON.stringify(message)));
 }
 
 const sendMessageToAllClientsThrottled = throttle(
-    message => {
+    (message) => {
         console.log('sending');
         sendMessageToAllClients(message);
     },
