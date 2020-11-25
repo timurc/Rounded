@@ -20,7 +20,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "NODE_ENV=production webpack --progress -p",
-    "deploy": "rsync -avzc --del --exclude 'node_modules' --exclude '.git' . voellig@antares.uberspace.de:/var/www/virtual/voellig/rounded.volligohne.de/",
+    "deploy": "rsync -avzc --del --exclude 'node_modules' --exclude '.git' . voellig@ananke.uberspace.de:/var/www/virtual/voellig/rounded.volligohne.de/",
     "start": "webpack-dev-server --progress --colors --port 8000 --host 0.0.0.0",
     "server": "node server/server.js"
   },
